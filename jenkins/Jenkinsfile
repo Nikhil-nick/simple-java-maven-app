@@ -20,9 +20,10 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') { 
+        stage('Docker Build & Deploy') {
             steps {
-                sh './jenkins/scripts/deliver.sh' 
+                sh 'docker build -t simple-java-maven-app:latest .'
+                sh 'docker run -d -p 8080:8080 simple-java-maven-app:latest'
             }
         }
     }
